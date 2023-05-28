@@ -6,7 +6,9 @@ services:
     container_name: quant-ux-mongo
     image: mongo
     volumes:
-      - ./data:/data/db
+      - mongo-data:/data/db
+      - mongo-config-db:/data/configdb
+    
   qux-fe:
     restart: always
     container_name: quant-ux-frontend
@@ -20,6 +22,7 @@ services:
       - 8082:8082
     depends_on:
       - qux-be
+      
   qux-be:
     restart: always
     container_name: quant-ux-backend
@@ -36,7 +39,10 @@ services:
       - QUX_JWT_PASSWORD=some-long-string-of-mix-case-chars-and-nums
       - QUX_IMAGE_FOLDER_USER=/qux-images
       - QUX_IMAGE_FOLDER_APPS=/qux-image-apps
-      - TZ=America/Chicago
+      - TZ=Europe/Rome
     depends_on:
       - mongo
 
+volumes:
+  mongo-data:
+  mongo-config-db:

@@ -1,0 +1,52 @@
+version: '3.9'
+services:
+  db:
+    image: mariadb:10.3
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_DATABASE: "passbolt"
+      MYSQL_USER: "passbolt"
+      MYSQL_PASSWORD: "P4ssb0lt"
+    volumes:
+      - mariadb:/var/lib/mysql
+
+  passbolt:
+    image: passbolt/passbolt:latest-ce
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      APP_FULL_BASE_URL: https://6fb0-79-45-3-112.eu.ngrok.io
+      DATASOURCES_DEFAULT_HOST: "db"
+      DATASOURCES_DEFAULT_USERNAME: "passbolt"
+      DATASOURCES_DEFAULT_PASSWORD: "P4ssb0lt"
+      DATASOURCES_DEFAULT_DATABASE: "passbolt"
+      EMAIL_TRANSPORT_DEFAULT_HOST: smtp.mailtrap.io
+      EMAIL_TRANSPORT_DEFAULT_PORT: 2525
+      EMAIL_TRANSPORT_DEFAULT_USERNAME: 4a3d0d20b2aaab
+      EMAIL_TRANSPORT_DEFAULT_PASSWORD: f078ff9a156a42
+    volumes:
+      - passbolt-gpg:/etc/passbolt/gpg
+      - passbolt-jwt:/etc/passbolt/jwt
+    command: ["/usr/bin/wait-for.sh", "-t", "0", "db:3306", "--", "/docker-entrypoint.sh"]
+    ports:
+      - 80:80
+      - 443:443
+      
+  mail:
+    image: bytemark/smtp
+    restart: always
+
+volumes:
+  mariadb:
+  passbolt-gpg:
+  passbolt-jwt:
+  
+  
+  
+# Init with:
+# docker-compose -f docker-compose-passbolt.yaml exec passbolt su -m 
+# -c "/usr/share/php/passbolt/bin/cake passbolt register_user -u
+# antonio.frisenda@test.it -f antonio -l frisenda -r admin" -s /bin/sh www-data
+

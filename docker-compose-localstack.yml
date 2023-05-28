@@ -1,4 +1,3 @@
-# NOT TESTED
 services:
   mongo:
     image: localstack/localstack:latest
