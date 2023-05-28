@@ -2,8 +2,9 @@
 
 > **Warning**
 > Not all files are tested
-  
-  
+ 
+&nbsp;
+&nbsp;
 ### :heavy_check_mark: SonarQube
 
 Volumes:
@@ -16,7 +17,7 @@ Volumes:
 Exposed ports:
 - 9000
 
-### Possible errors:
+#### Possible errors:
 
 If this error is shown in sonarqube log:
 ```
@@ -29,7 +30,8 @@ Fix it using the following command:
 sudo sysctl -w vm.max_map_count=262144
 ```
 
-
+&nbsp;
+&nbsp;
 ### :heavy_check_mark: Jenkins
 
 Volumes:
@@ -43,7 +45,8 @@ Exposed ports:
 - 50000
 
 
-
+&nbsp;
+&nbsp;
 ### :heavy_check_mark: Redis
 
 Volumes:
@@ -55,7 +58,8 @@ Exposed ports:
 - 6379
 - 8001 (Redis insight)
 
-
+&nbsp;
+&nbsp;
 ### :heavy_check_mark: Mongo
 
 Volumes:
