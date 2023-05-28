@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  mongo:
+    restart: always
+    container_name: quant-ux-mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+  qux-fe:
+    restart: always
+    container_name: quant-ux-frontend
+    image: bmcgonag/qux-fe
+    environment:
+      - QUX_PROXY_URL=http://quant-ux-backend:8080
+    links:
+      - mongo
+      - qux-be
+    ports:
+      - 8082:8082
+    depends_on:
+      - qux-be
+  qux-be:
+    restart: always
+    container_name: quant-ux-backend
+    image: bmcgonag/qux-be
+    environment:
+      - QUX_HTTP_HOST=http://quant-ux-frontend:8082
+      - QUX_HTTP_PORT=8080
+      - QUX_MONGO_DB_NAME=quantux
+      - QUX_MONGO_TABLE_PREFIX=quantux
+      - QUX_MONGO_CONNECTION_STRING=mongodb://quant-ux-mongo:27017
+      - QUX_MAIL_USER=mail_admin@example.com
+      - QUX_MAIL_PASSWORD=sTr0ngPa55w0Rd
+      - QUX_MAIL_HOST=mail.example.com
+      - QUX_JWT_PASSWORD=some-long-string-of-mix-case-chars-and-nums
+      - QUX_IMAGE_FOLDER_USER=/qux-images
+      - QUX_IMAGE_FOLDER_APPS=/qux-image-apps
+      - TZ=America/Chicago
+    depends_on:
+      - mongo
+

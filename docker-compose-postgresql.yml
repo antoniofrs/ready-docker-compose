@@ -1,0 +1,30 @@
+services:
+
+  postgresql:
+    container_name: postgresql
+    image: docker.io/bitnami/postgresql:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin-password
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+      - 'postgresql_preinitdb:/docker-entrypoint-preinitdb.d'
+      - 'postgresql_initdb:/docker-entrypoint-initdb.d'
+
+  pgadmin:
+    container_name: pg-admin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - "5050:80"
+    volumes:
+       - pgadmin:/var/lib/pgadmin
+       
+volumes:
+    postgresql_data:
+    postgresql_preinitdb:
+    postgresql_initdb:
+    pgadmin:

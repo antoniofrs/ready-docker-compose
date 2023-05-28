@@ -1,0 +1,13 @@
+# NOT TESTED
+services:
+  mongo:
+    image: localstack/localstack:latest
+    container_name: local-stack
+    ports:
+     - "4566:4566"
+     - "4571:4571"
+    volumes:
+     - localstask-lib:/var/lib/localstack
+     
+volumes:
+  localstask-lib:
