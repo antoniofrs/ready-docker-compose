@@ -71,3 +71,20 @@ Exposed ports:
 
 - 27017
 - 8081 (Mongo express)
+
+&nbsp;
+&nbsp;
+### :heavy_check_mark: Keycloak
+
+Volumes:
+
+- postgresql-data
+- postgresql-preinitdb
+- postgresql-initdb
+- pgadmin
+
+
+Exposed ports:
+
+- 5050 (pg-admin)
+- 80
