@@ -1,8 +1,9 @@
 # Ready docker-compose
 
-Not all files are tested
-
-
+> **Warning**
+> Not all files are tested
+  
+  
 ### :heavy_check_mark: SonarQube
 
 Volumes:
@@ -15,18 +16,18 @@ Volumes:
 Exposed ports:
 - 9000
 
-Possible errors:
+### Possible errors:
 
 If this error is shown in sonarqube log:
-’’’
+```
 max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-’’’
+```
 
 Fix it using the following command:
 
-’’’bash
+```bash
 sudo sysctl -w vm.max_map_count=262144
-’’’
+```
 
 
 ### :heavy_check_mark: Jenkins
