@@ -88,3 +88,17 @@ Exposed ports:
 
 - 5050 (pg-admin)
 - 80
+
+
+&nbsp;
+&nbsp;
+### :heavy_check_mark: DynamoDB
+
+Volumes:
+
+- dynamodb-data
+
+Exposed ports:
+
+- 8000 
+- 8001 (Dynamo admin)
